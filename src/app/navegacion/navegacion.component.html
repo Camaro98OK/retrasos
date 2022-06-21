@@ -1,9 +1,60 @@
-<pre>{{numeroCarpeta.value | json }} </pre>
-<form [formGroup]="numeroCarpeta" (submit)="onSubmit()">
-    name: <input type="text" formControlName="tipo">
-    <button type="submit" [disabled]="miFormulario.invalid">Enviar</button>
+<div class="row" style="margin-top: 1rem; background-color: lightslategray;">
+    <div>
+        <form [formGroup]="formulario2" (ngSubmit)="getCarpetaInvestigacion()">
+            <div class="col-3" style="margin-top: 1rem;">
+                <mat-label>Prefijo</mat-label>
+                <mat-select id="tipo" name="tipo" formControlName="tipo">
+                    <mat-option value="FED">FED</mat-option>
+                </mat-select>
+            </div>
+            <div class="col-3" style="margin-top: 1rem;">
+                <mat-label>Estado</mat-label>
+                <mat-select id="vestado" formField="estadoFor" required name="vestado" formControlName="estadoFor">
+                    <mat-option *ngFor="let estado of estadosCat" [value]="estado.cve">{{estado.nombre}}</mat-option>
+                </mat-select>
+            </div>
+            <div class="col-3">
+                <mat-label>Unidad</mat-label>
+                <mat-select id="vunidad" formField="unidadFor" required name="vunidad" formControlName="unidadFor">
+                    <mat-option *ngFor="let unidad of unidadCat" [value]="unidad.unidad">{{unidad.unidad}}</mat-option>
+                </mat-select>
+            </div>
+            <div class="col-3">
+                <mat-label>Ingrese los 7 dígitos de la carpeta</mat-label>
+                <input id="num_carpeta" name="num_carpeta" formField="nuc" formControlName="nuc">
+            </div>
+            <div class="col-3">
+                <mat-label>Año</mat-label>
+                <mat-select id="vanio" formField="anioFor" required name="vanio" formControlName="anioFor">
+                    <mat-option value="2019">2019</mat-option>
+                    <mat-option value="2020">2020</mat-option>
+                    <mat-option value="2021">2021</mat-option>
+                    <mat-option value="2022">2022</mat-option>
+                </mat-select>
+            </div>
+            <div class="col-3">
+                <button type="submit">Enviar</button>
+            </div>
+        </form>
+    </div>
 
-</form>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 <br>
 <br>
 <h2>Tabla de carpetas </h2>

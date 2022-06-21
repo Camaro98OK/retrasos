@@ -41,9 +41,18 @@ export class NavegacionComponent implements OnInit {
     cmiUnidad: new FormControl(''),
   });
 
+
+  formulario2 = new FormGroup({
+    tipo: new FormControl('', Validators.required),
+    estadoFor : new FormControl(''),
+    unidadFor: new FormControl(''),
+    nuc: new  FormControl(''),
+    anioFor: new FormControl(''),
+  });
+
     miFormulario: FormControl;
 
-      edos: [];
+      //edos: [];
     url = 'https://localhost:3000/admin';
 
     displayedColumns: string[] = ['estado', 'unidad'];
@@ -59,6 +68,9 @@ export class NavegacionComponent implements OnInit {
     carpetasInvestigacionUni: MatTableDataSource<CarpetaInv>;
     respuestas = '';
 
+    estadosCat: Estado[] = [];
+    unidadCat: Unidad[] = [];
+
     constructor(private DbDatosService: DbDatosService, private http: HttpClient, private formBuilder: FormBuilder) {
 
       }
@@ -72,32 +84,37 @@ export class NavegacionComponent implements OnInit {
     }
 
     onSubmit() {
-      console.log(this.miFormulario);
+      console.log(this.formulario2.value);
       this.getCarpetaInvestigacion();
     }
 
      getUnidades() {
       this.DbDatosService.getUnidad().subscribe(resp => {
-           this.unidades = new MatTableDataSource(resp);
+           //this.unidades = new MatTableDataSource(resp);
+           this.unidadCat = resp;
+           //console.log(resp);
       })
     }
 
     getEstados() {
-      this.DbDatosService.getEstados().subscribe((resEstados) => {
-        this.estados = new MatTableDataSource(resEstados)
+      this.DbDatosService.getEstados().subscribe(resEstados => {
+        //this.estadosCat = new MatTableDataSource(resEstados);
+        this.estadosCat = resEstados;
+        //console.log(resEstados);
       })
     }
 
 
   getCarpetaInvestigacion() {
     const header = new HttpHeaders().set('Type-conten', 'aplication-json');
+    console.log(this.formulario2.value);
     this.http.post(`${this.url}/ci`,
         {
-          tipo: this.numeroCarpeta.value.tipo,
-          edo: this.numeroCarpeta.value.edo,
-          unidad: this.numeroCarpeta.value.unidad,
-          numCar: this.numeroCarpeta.value.numCar,
-          anio: this.numeroCarpeta.value.anio,
+          tipo: this.formulario2.value.tipo,
+          edo: this.formulario2.value.estadoFor,
+          unidad: this.formulario2.value.unidadFor,
+          numCar: this.formulario2.value.nuc,
+          anio: this.formulario2.value.anioFor,
         } ,
         {headers: header}).subscribe((datosCmi: any) =>{
           //this.respuestas = JSON.stringify(datosCmi);
