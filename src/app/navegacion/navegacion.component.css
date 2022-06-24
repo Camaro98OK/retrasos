@@ -9,11 +9,25 @@ div {
     padding: 5px;
     margin: 5px;
     align-content: flex-end;
-    border: 3px solid brown;
+    border: 3px solid gray;
     border-radius: 22px;
-    border-radius: 10px 0px 39px 22px;
+    border-radius: 10px 10px 10px 10px;
 }
 
 .example-button-row .mat-button-base {
     margin: 8px 8px 8px 0;
+}
+
+table {
+    width: 100%;
+}
+
+.mat-form-field {
+    font-size: 12px;
+}
+
+td,
+th {
+    width: 5%;
+    font-size: 12px blue;
 }

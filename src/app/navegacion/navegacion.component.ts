@@ -18,21 +18,14 @@ import { Animal } from '../interfaces/animal';
   providers: []
 })
 
-export class NavegacionComponent implements OnInit {
+export class NavegacionComponent implements OnInit, AfterViewInit  {
 
-  animalControl = new FormControl(null, Validators.required);
-
-  selectFormControl = new FormControl('', Validators.required);
-
-  animals: Animal[] = [
-    {name: 'Dog', sound: 'Woof!'},
-    {name: 'Cat', sound: 'Meow!'},
-  ];
+ selectFormControl = new FormControl('', Validators.required);
 
   anio= '';
   cmiUnidad='';
 
-  numeroCarpeta = new FormGroup({
+  /*numeroCarpeta = new FormGroup({
     edo: new FormControl('', Validators.required),
     unidad: new FormControl('', Validators.required),
     numCar: new FormControl('', Validators.required),
@@ -40,6 +33,7 @@ export class NavegacionComponent implements OnInit {
     anio: new FormControl('', Validators.required),
     cmiUnidad: new FormControl(''),
   });
+  */
 
 
   formulario2 = new FormGroup({
@@ -71,8 +65,11 @@ export class NavegacionComponent implements OnInit {
     estadosCat: Estado[] = [];
     unidadCat: Unidad[] = [];
 
-    constructor(private DbDatosService: DbDatosService, private http: HttpClient, private formBuilder: FormBuilder) {
+    @ViewChild(MatPaginator) paginator: MatPaginator;
+    @ViewChild(MatSort) sort: MatSort;
 
+
+    constructor(private DbDatosService: DbDatosService, private http: HttpClient, private formBuilder: FormBuilder) {
       }
 
     ngOnInit(): void {
@@ -119,6 +116,8 @@ export class NavegacionComponent implements OnInit {
         {headers: header}).subscribe((datosCmi: any) =>{
           //this.respuestas = JSON.stringify(datosCmi);
           this.carpetasCMI = new MatTableDataSource(datosCmi);
+          this.carpetasCMI.paginator = this.paginator;
+          this.carpetasCMI.sort = this.sort;
 
           console.log(datosCmi);
 
@@ -150,4 +149,17 @@ export class NavegacionComponent implements OnInit {
   onSelectEstado() {
     console.log('Manda llamar a la consulta filtrada');
   }
+
+  ngAfterViewInit() {
+  }
+
+  applyFilter(event: Event) {
+    const filterValue = (event.target as HTMLInputElement).value;
+    this.carpetasCMI.filter = filterValue.trim().toLowerCase();
+
+    if (this.carpetasCMI.paginator) {
+      this.carpetasCMI.paginator.firstPage();
+    }
+  }
 }
+
