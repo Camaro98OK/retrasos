@@ -1,45 +1,50 @@
-<div class="row" style="margin-top: 1rem; background-color: lightslategray;">
-    <div>
-        <form [formGroup]="formulario2" (ngSubmit)="getCarpetaInvestigacion()">
-            <div class="col-3" style="margin-top: 1rem;">
-                <mat-label>Prefijo</mat-label>
-                <mat-select id="tipo" name="tipo" formControlName="tipo">
-                    <mat-option value="FED">FED</mat-option>
-                </mat-select>
-            </div>
-            <div class="col-3" style="margin-top: 1rem;">
-                <mat-label>Estado</mat-label>
-                <mat-select id="vestado" formField="estadoFor" required name="vestado" formControlName="estadoFor">
-                    <mat-option *ngFor="let estado of estadosCat" [value]="estado.cve">{{estado.nombre}}</mat-option>
-                </mat-select>
-            </div>
-            <div class="col-3">
-                <mat-label>Unidad</mat-label>
-                <mat-select id="vunidad" formField="unidadFor" required name="vunidad" formControlName="unidadFor">
-                    <mat-option *ngFor="let unidad of unidadCat" [value]="unidad.unidad">{{unidad.unidad}}</mat-option>
-                </mat-select>
-            </div>
-            <div class="col-3">
-                <mat-label>Ingrese los 7 dígitos de la carpeta</mat-label>
-                <input id="num_carpeta" name="num_carpeta" formField="nuc" formControlName="nuc">
-            </div>
-            <div class="col-3">
-                <mat-label>Año</mat-label>
-                <mat-select id="vanio" formField="anioFor" required name="vanio" formControlName="anioFor">
-                    <mat-option value="2019">2019</mat-option>
-                    <mat-option value="2020">2020</mat-option>
-                    <mat-option value="2021">2021</mat-option>
-                    <mat-option value="2022">2022</mat-option>
-                </mat-select>
-            </div>
-            <div class="col-3">
-                <button type="submit">Enviar</button>
-            </div>
-        </form>
-    </div>
+<div class="row col-xs-12 col-sm-12 col-md-12" style=" border-bottom-color: lightblue; border: #00CC66; ">
+    <form [formGroup]="formulario2" (ngSubmit)="getCarpetaInvestigacion()" class="text-center">
+        <h1>Arma tu carpeta de investigación</h1>
+        <mat-form-field appearance="fill">
 
+            <mat-label>Prefijo</mat-label>
+            <mat-select id="tipo" name="tipo" formControlName="tipo">
+                <mat-option value="FED">FED</mat-option>
+            </mat-select>
+
+        </mat-form-field>
+        /
+        <mat-form-field appearance="fill">
+            <mat-label>Estado</mat-label>
+            <mat-select id="vestado" formField="estadoFor" required name="vestado" formControlName="estadoFor" (click)="onSelectEstado()">
+                <mat-option *ngFor="let estado of estadosCat" [value]="estado.cve">{{estado.nombre}}</mat-option>
+            </mat-select>
+        </mat-form-field>
+        /
+        <mat-form-field appearance="fill">
+            <mat-label>Unidad</mat-label>
+            <mat-select id="vunidad" formField="unidadFor" required name="vunidad" formControlName="unidadFor">
+                <mat-option *ngFor="let unidad of unidadCat" [value]="unidad.unidad">{{unidad.unidad}}</mat-option>
+            </mat-select>
+        </mat-form-field>
+        /
+        <mat-form-field appearance="fill">
+
+            <mat-label>Número</mat-label>
+            <input matInput id="num_carpeta" name="num_carpeta" formField="nuc" formControlName="nuc">
+        </mat-form-field>
+        /
+        <mat-form-field appearance="fill">
+            <mat-label>Año</mat-label>
+            <mat-select id="vanio" formField="anioFor" required name="vanio" formControlName="anioFor">
+                <mat-option value="2019">2019</mat-option>
+                <mat-option value="2020">2020</mat-option>
+                <mat-option value="2021">2021</mat-option>
+                <mat-option value="2022">2022</mat-option>
+            </mat-select>
+        </mat-form-field>
+        <button class="btn btn-primary" type="submit" style="margin-left: 2rem;"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-binoculars" viewBox="0 0 16 16">
+          <path d="M3 2.5A1.5 1.5 0 0 1 4.5 1h1A1.5 1.5 0 0 1 7 2.5V5h2V2.5A1.5 1.5 0 0 1 10.5 1h1A1.5 1.5 0 0 1 13 2.5v2.382a.5.5 0 0 0 .276.447l.895.447A1.5 1.5 0 0 1 15 7.118V14.5a1.5 1.5 0 0 1-1.5 1.5h-3A1.5 1.5 0 0 1 9 14.5v-3a.5.5 0 0 1 .146-.354l.854-.853V9.5a.5.5 0 0 0-.5-.5h-3a.5.5 0 0 0-.5.5v.793l.854.853A.5.5 0 0 1 7 11.5v3A1.5 1.5 0 0 1 5.5 16h-3A1.5 1.5 0 0 1 1 14.5V7.118a1.5 1.5 0 0 1 .83-1.342l.894-.447A.5.5 0 0 0 3 4.882V2.5zM4.5 2a.5.5 0 0 0-.5.5V3h2v-.5a.5.5 0 0 0-.5-.5h-1zM6 4H4v.882a1.5 1.5 0 0 1-.83 1.342l-.894.447A.5.5 0 0 0 2 7.118V13h4v-1.293l-.854-.853A.5.5 0 0 1 5 10.5v-1A1.5 1.5 0 0 1 6.5 8h3A1.5 1.5 0 0 1 11 9.5v1a.5.5 0 0 1-.146.354l-.854.853V13h4V7.118a.5.5 0 0 0-.276-.447l-.895-.447A1.5 1.5 0 0 1 12 4.882V4h-2v1.5a.5.5 0 0 1-.5.5h-3a.5.5 0 0 1-.5-.5V4zm4-1h2v-.5a.5.5 0 0 0-.5-.5h-1a.5.5 0 0 0-.5.5V3zm4 11h-4v.5a.5.5 0 0 0 .5.5h3a.5.5 0 0 0 .5-.5V14zm-8 0H2v.5a.5.5 0 0 0 .5.5h3a.5.5 0 0 0 .5-.5V14z"/>
+        </svg>  Buscar  </button>
+        <hr id="linea1" style="border-width: 2px; border-style: solid; border-color: blue;   width: 100%;">
+    </form>
 </div>
-
 
 
 

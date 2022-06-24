@@ -146,4 +146,8 @@ export class NavegacionComponent implements OnInit {
       this.carpetasInvestigacionUni = new MatTableDataSource(datosCIU);
     });
   }
+
+  onSelectEstado() {
+    console.log('Manda llamar a la consulta filtrada');
+  }
 }
