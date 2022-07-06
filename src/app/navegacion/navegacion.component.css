@@ -31,3 +31,7 @@ th {
     width: 5%;
     font-size: 12px blue;
 }
+
+.spinner {
+    margin: auto;
+}
